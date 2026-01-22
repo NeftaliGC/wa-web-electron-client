@@ -1,0 +1,46 @@
+{
+	"name": "whatsapp-client",
+	"version": "0.1.0",
+	"description": "WhatsApp Web client built with Electron",
+	"main": "main.js",
+	"private": true,
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "electron .",
+		"build": "electron-builder"
+	},
+	"author": {
+		"name": "Nintech",
+		"email": "nintech1912@gmail.com"
+	},
+	"homepage": "https://nintech.dev",
+	"license": "MIT",
+	"build": {
+		"appId": "com.nintech.whatsappweb",
+		"productName": "WhatsApp Web Client",
+		"linux": {
+			"target": [
+				"AppImage",
+				"deb"
+			],
+			"icon": "WhatsApp_icon.png",
+			"asarUnpack": [
+				"**/WhatsApp_icon.png"
+			],
+			"category": "Network"
+		},
+		"files": [
+			"main.js",
+			"package.json",
+			"node_modules/**/*",
+			"WhatsApp_icon.png"
+		]
+	},
+	"devDependencies": {
+		"electron": "^40.0.0",
+		"electron-builder": "^26.4.0"
+	},
+	"dependencies": {
+		"electron-store": "^11.0.2"
+	}
+}
