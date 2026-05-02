@@ -39,10 +39,10 @@
 		]
 	},
 	"devDependencies": {
-		"electron": "^40.0.0",
 		"electron-builder": "^26.4.0"
 	},
 	"dependencies": {
+		"electron": "^41.5.0",
 		"electron-store": "^11.0.2"
 	}
 }

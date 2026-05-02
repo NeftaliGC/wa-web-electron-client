@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Tray, Menu, dialog, session } = require("electron");
+const { app, BrowserWindow, Tray, Menu, dialog, session, shell } = require("electron");
 const Store = require("electron-store").default;
 const path = require("path");
 
@@ -105,6 +105,18 @@ function createWindow() {
         "(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36";
 
     win.loadURL("https://web.whatsapp.com", { userAgent });
+
+    win.webContents.setWindowOpenHandler(({ url }) => {
+        shell.openExternal(url);
+        return { action: 'deny' };
+    });
+
+    win.webContents.on('will-navigate', (event, url) => {
+        if (url !== win.webContents.getURL()) {
+            event.preventDefault();
+            shell.openExternal(url);
+        }
+    });
 
     win.on("close", (event) => {
         if (!isQuitting) {
