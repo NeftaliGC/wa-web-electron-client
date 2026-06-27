@@ -93,15 +93,20 @@ npm run start
 
 ### AppImage for Linux
 ```bash
-npm run build:appimage
+pnpm run build:appimage
 ```
 ### DEB for Linux
 ```bash
-npm run build:deb
+pnpm run build:deb
 ```
 > ℹ️ Note:  
 > Precompiled binaries are not provided in this repository.  
 > Users are encouraged to build the application locally.
+
+### pacman for Arch
+```bash
+pnpm run build:pacman
+```
 
 ## 🐧 Linux Notes
 - Tray support depends on the desktop environment.
