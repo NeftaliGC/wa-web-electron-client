@@ -9,7 +9,8 @@
 		"start": "electron .",
 		"build": "electron-builder",
 		"build:appimage": "electron-builder --linux AppImage",
-		"build:deb": "electron-builder --linux deb"
+		"build:deb": "electron-builder --linux deb",
+		"build:pacman": "electron-builder --linux pacman"
 	},
 	"author": {
 		"name": "Nintech",
@@ -23,7 +24,8 @@
 		"linux": {
 			"target": [
 				"AppImage",
-				"deb"
+				"deb",
+				"pacman"
 			],
 			"icon": "WhatsApp_icon.png",
 			"asarUnpack": [
