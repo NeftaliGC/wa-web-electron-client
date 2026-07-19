@@ -109,6 +109,11 @@ pnpm run build:pacman
 ```
 
 ## 🐧 Linux Notes
+
+### Hyprland / Tiling‑WM integration
+- **Configurable Close Behavior**: In the menu **WhatsApp → Close Behavior**, you can choose between *Hide to tray* (default) or *Exit completely*.
+- **App ID**: the application registers as `com.nintech.whatsappweb`, which helps Hyprland group it under a single name.
+
 - Tray support depends on the desktop environment.
 - Icon sizes should include 512x512 for proper dock integration.
 - AppImage icons may not appear in all docks automatically.

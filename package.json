@@ -19,7 +19,7 @@
 	"homepage": "https://nintech.dev",
 	"license": "MIT",
 	"build": {
-		"appId": "com.nintech.whatsappweb",
+		"appId": "com.nintech.whatsappweb-client",
 		"productName": "WhatsApp Web Client",
 		"linux": {
 			"target": [

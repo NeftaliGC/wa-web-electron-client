@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Tray, Menu, dialog, session, shell } = require("electron");
+const { app, BrowserWindow, Tray, Menu, dialog, session, shell, screen } = require("electron");
 const Store = require("electron-store").default;
 const path = require("path");
 
@@ -56,6 +56,23 @@ const menuTemplate = [
                 }
             }
         },
+        {
+            label: "Comportamiento al cerrar",
+            submenu: [
+                {
+                    label: "Ocultar en bandeja",
+                    type: "radio",
+                    checked: store.get("closeAction", "hide") === "hide",
+                    click: () => store.set("closeAction", "hide")
+                },
+                {
+                    label: "Salir completamente",
+                    type: "radio",
+                    checked: store.get("closeAction") === "quit",
+                    click: () => store.set("closeAction", "quit")
+                }
+            ]
+        },
         { type: "separator" },
         {
             label: "Salir",
@@ -64,7 +81,7 @@ const menuTemplate = [
             isQuitting = true;
             app.quit();
             }
-        }
+        },
         ]
     },
     {
@@ -81,11 +98,13 @@ Menu.setApplicationMenu(Menu.buildFromTemplate(menuTemplate));
 
 function createWindow() {
     win = new BrowserWindow({
-        width: store.get("width", 1000),
-        height: store.get("height", 800),
+        width: 1000,
+        height: 800,
         autoHideMenuBar: false,
         icon: iconPath,
         title: "WhatsApp Web Client",
+        frame: true,
+        transparent: true,
         webPreferences: {
             nodeIntegration: false,
             contextIsolation: true,
@@ -119,11 +138,15 @@ function createWindow() {
     });
 
     win.on("close", (event) => {
-        if (!isQuitting) {
+        const closeAction = store.get('closeAction', 'hide');
+        if (closeAction === 'hide' && !isQuitting) {
             event.preventDefault();
-            store.set("width", win.getBounds().width);
-            store.set("height", win.getBounds().height);
+            store.set('width', win.getBounds().width);
+            store.set('height', win.getBounds().height);
             win.hide();
+        } else {
+            // Salida definitiva (quit)
+            isQuitting = true;
         }
     });
 
