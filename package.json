@@ -2,7 +2,7 @@
 	"name": "whatsapp-client",
 	"version": "0.1.0",
 	"description": "WhatsApp Web client built with Electron",
-	"main": "main.js",
+	"main": "main/index.js",
 	"private": true,
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
