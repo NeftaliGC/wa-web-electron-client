@@ -2,7 +2,7 @@ const { app } = require("electron");
 const path = require("path");
 
 const iconPath = app.isPackaged
-    ? path.join(process.resourcesPath, "app.asar.unpacked", "WhatsApp_icon.png")
+    ? path.join(process.resourcesPath, "app.asar.unpacked", "assets", "WhatsApp_icon.png")
     : path.join(__dirname, "..", "assets", "WhatsApp_icon.png");
 
 const USER_AGENT =
