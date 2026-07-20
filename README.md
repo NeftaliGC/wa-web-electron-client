@@ -12,14 +12,7 @@ This project is not affiliated with, endorsed, or sponsored by Meta.
 
 This project is a **minimal desktop client for WhatsApp Web**, built using **Electron**.
 
-It loads the official **https://web.whatsapp.com** website inside an Electron window, providing:
-
-- A native desktop window
-- System tray integration
-- Persistent session storage
-- Window size persistence
-- A collapsible sidebar for smaller/narrower screens
-- Native Linux packaging support
+It loads the official **https://web.whatsapp.com** website inside an Electron window, providing [These Features](#-features)
 
 No WhatsApp source code is bundled, reverse-engineered, or reused. The WhatsApp Web protocol itself is never touched — only the rendered page's presentation layer (see [What this project does NOT do](#-what-this-project-does-not-do)).
 
@@ -34,8 +27,10 @@ No WhatsApp source code is bundled, reverse-engineered, or reused. The WhatsApp 
 - 📥 System tray support
 - 🔁 Single-instance lock
 - 🧹 Option to clear cache and log out
-- 🧩 Collapsible sidebar (toggle button + keyboard shortcut)
+- 🧩 Collapsible sidebar (toggle button + `Ctrl+Shift+T`)
+- 🌐 Electron Interface language: Spanish / English, with automatic system detection (menu → **WhatsApp → Idioma / Language**)
 - 🐧 Linux support (.AppImage / .deb / pacman)
+
 
 ---
 
@@ -106,7 +101,7 @@ pnpm run build:pacman
 ## 🐧 Linux Notes
 
 ### Hyprland / Tiling-WM integration
-- **Configurable Close Behavior**: in the **WhatsApp** menu → **Comportamiento al cerrar**, you can choose between *Ocultar en bandeja* (hide to tray, default) or *Salir completamente* (exit completely).
+- **Configurable Close Behavior**: in the **WhatsApp** menu → **Comportamiento al cerrar / Close behavior**, choose between *Ocultar en bandeja / Hide to tray* (default) or *Salir completamente / Quit completely*.
 - **Sidebar toggle**: use the embedded button or `Ctrl+Shift+T` to collapse/expand the sidebar — useful on narrow tiled windows.
 - **App ID**: the application registers as `com.nintech.wa-web-electron-client`, which helps Hyprland group it under a single name.
 

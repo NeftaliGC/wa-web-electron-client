@@ -1,6 +1,6 @@
 {
 	"name": "whatsapp-client",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"description": "Unofficial WhatsApp Web client built with Electron",
 	"main": "main/index.js",
 	"private": true,

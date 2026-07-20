@@ -16,9 +16,11 @@ function injectSidebar(webContents) {
     try {
         const js = fs.readFileSync(JS_PATH, "utf8");
         const initialHidden = sidebarController.getHidden();
-        webContents.executeJavaScript(
-            `window.__WA_SIDEBAR_INITIAL_HIDDEN__ = ${initialHidden};\n${js}`
-        );
+        const initialLabels = sidebarController.getLabels();
+        const bootstrap =
+            `window.__WA_SIDEBAR_INITIAL_HIDDEN__ = ${initialHidden};\n` +
+            `window.__WA_SIDEBAR_INITIAL_LABELS__ = ${JSON.stringify(initialLabels)};\n`;
+        webContents.executeJavaScript(bootstrap + js);
     } catch (err) {
         console.error("[inject] No se pudo cargar sidebar.js:", err);
     }

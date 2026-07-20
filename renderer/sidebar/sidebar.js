@@ -15,6 +15,7 @@
             this.isHidden = typeof root.__WA_SIDEBAR_INITIAL_HIDDEN__ === "boolean"
                 ? root.__WA_SIDEBAR_INITIAL_HIDDEN__
                 : false;
+            this.labels = root.__WA_SIDEBAR_INITIAL_LABELS__ || { show: "Show sidebar", hide: "Hide sidebar" };
 
             this._initDone = false;
             this._observer = null;
@@ -97,12 +98,12 @@
             toggleBtn.innerHTML = ICON_SIDEBAR;
             toggleBtn.setAttribute("aria-pressed", "false");
             toggleBtn.setAttribute("tabindex", "-1");
-            toggleBtn.title = "Alternar barra lateral (Ctrl+B)";
-            toggleBtn.setAttribute("aria-label", "Alternar barra lateral (Ctrl+B)");
             toggleBtn.addEventListener("click", (e) => {
                 e.stopPropagation();
                 if (root.waSidebarBridge) {
                     root.waSidebarBridge.requestToggle();
+                } else {
+                    console.error("[sidebar] waSidebarBridge no está disponible — revisa que el preload esté cargando.");
                 }
             });
 
@@ -140,6 +141,11 @@
             this._applyState();
         }
 
+        setLabels(labels) {
+            this.labels = labels;
+            this._applyState();
+        }
+
         _applyState() {
             if (!this.sidebarPanel) return;
 
@@ -152,6 +158,10 @@
             if (this.toggleButton) {
                 this.toggleButton.classList.toggle("wa-sidebar-is-hidden", this.isHidden);
                 this.toggleButton.setAttribute("aria-pressed", String(this.isHidden));
+
+                const label = this.isHidden ? this.labels.show : this.labels.hide;
+                this.toggleButton.title = label;
+                this.toggleButton.setAttribute("aria-label", label);
             }
         }
     }

@@ -1,27 +1,39 @@
 const { Menu, app, dialog, session } = require("electron");
+
 const state = require("./state");
 const store = require("./store");
 const sidebarController = require("./sidebar-controller");
+const i18n = require("./i18n");
+const { updateTray } = require("./tray");
+const { SIDEBAR_ACCELERATOR } = require("./constants")
 
-const SIDEBAR_ACCELERATOR = "CmdOrCtrl+Shift+T"; // cámbialo aquí si choca con negritas
+
+function onLanguageChange(pref) {
+    i18n.setLocalePreference(pref);
+    createMenu();
+    updateTray();
+}
 
 function buildTemplate() {
+    const currentLangPref = i18n.getLocalePreference();
+
     return [
         {
-            label: "WhatsApp",
+            label: i18n.t("menu.whatsapp"),
             submenu: [
                 {
-                    label: "Recargar",
+                    label: i18n.t("menu.reload"),
                     accelerator: "Ctrl+R",
                     click: () => state.win.reload()
                 },
                 {
-                    label: "Limpiar caché y cerrar sesión",
+                    label: i18n.t("menu.clearCache"),
                     click: async () => {
                         const { response } = await dialog.showMessageBox({
                             type: "warning",
-                            buttons: ["Cancelar", "Continuar"],
-                            message: "Esto cerrará la sesión de WhatsApp"
+                            title: i18n.t("dialog.clearCache.title"),
+                            buttons: [i18n.t("dialog.clearCache.cancel"), i18n.t("dialog.clearCache.continue")],
+                            message: i18n.t("dialog.clearCache.message")
                         });
 
                         if (response === 1) {
@@ -33,25 +45,48 @@ function buildTemplate() {
                     }
                 },
                 {
-                    label: "Comportamiento al cerrar",
+                    label: i18n.t("menu.closeBehavior"),
                     submenu: [
                         {
-                            label: "Ocultar en bandeja",
+                            label: i18n.t("menu.hideToTray"),
                             type: "radio",
                             checked: store.get("closeAction", "hide") === "hide",
                             click: () => store.set("closeAction", "hide")
                         },
                         {
-                            label: "Salir completamente",
+                            label: i18n.t("menu.quitCompletely"),
                             type: "radio",
                             checked: store.get("closeAction") === "quit",
                             click: () => store.set("closeAction", "quit")
                         }
                     ]
                 },
+                {
+                    label: i18n.t("menu.language"),
+                    submenu: [
+                        {
+                            label: i18n.t("menu.languageSystem"),
+                            type: "radio",
+                            checked: currentLangPref === "system",
+                            click: () => onLanguageChange("system")
+                        },
+                        {
+                            label: i18n.t("menu.languageEs"),
+                            type: "radio",
+                            checked: currentLangPref === "es",
+                            click: () => onLanguageChange("es")
+                        },
+                        {
+                            label: i18n.t("menu.languageEn"),
+                            type: "radio",
+                            checked: currentLangPref === "en",
+                            click: () => onLanguageChange("en")
+                        }
+                    ]
+                },
                 { type: "separator" },
                 {
-                    label: "Salir",
+                    label: i18n.t("menu.quit"),
                     accelerator: "Ctrl+Q",
                     click: () => {
                         state.isQuitting = true;
@@ -61,24 +96,31 @@ function buildTemplate() {
             ]
         },
         {
-            label: "Vista",
+            label: i18n.t("menu.view"),
             submenu: [
-                { role: "togglefullscreen" },
-                { role: "toggleDevTools" },
+                { role: "togglefullscreen", label: i18n.t("menu.toggleFullscreen") },
+                { role: "toggleDevTools", label: i18n.t("menu.toggleDevTools") },
                 { type: "separator" },
                 {
-                    label: "Ocultar barra lateral",
+                    label: i18n.t("menu.hideSidebar"),
                     type: "checkbox",
                     accelerator: SIDEBAR_ACCELERATOR,
                     checked: sidebarController.getHidden(),
                     click: () => {
                         sidebarController.toggle();
-                        createMenu(); // reconstruye para reflejar el nuevo checked
+                        createMenu();
                     }
                 }
             ]
         }
     ];
+}
+
+function onLanguageChange(pref) {
+    i18n.setLocalePreference(pref);
+    createMenu();
+    updateTray();
+    sidebarController.applyLabelsToWindow();
 }
 
 function createMenu() {
