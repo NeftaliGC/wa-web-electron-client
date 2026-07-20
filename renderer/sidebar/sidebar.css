@@ -1,0 +1,45 @@
+/* Oculta el panel de la barra lateral (lista de chats) sin romper el layout flex de WhatsApp */
+.wa-sidebar-panel.wa-sidebar-hidden {
+    display: none !important;
+}
+
+/* La franja gris que queda detrás cuando el panel desaparece */
+.wa-sidebar-overlay-hidden {
+    display: none !important;
+}
+
+/* Contenedor del botón, para que respete el espaciado del resto de íconos del nav */
+.wa-toggle-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Botón de toggle, con el mismo look & feel que los íconos nativos del header[data-tab="2"] */
+.wa-toggle-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    margin: 4px 0;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--icon-primary, rgba(233, 237, 239, 0.6));
+    cursor: pointer;
+    transition: background-color 0.15s ease-in-out;
+}
+
+.wa-toggle-btn:hover {
+    background-color: var(--panel-header-icon-hover, rgba(255, 255, 255, 0.08));
+}
+
+.wa-toggle-btn:active {
+    background-color: var(--panel-header-icon-active, rgba(255, 255, 255, 0.12));
+}
+
+/* Estado "sidebar oculta": atenuamos el ícono para dar feedback visual */
+.wa-toggle-btn.wa-sidebar-is-hidden {
+    color: var(--icon-primary-active, #00a884);
+}

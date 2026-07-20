@@ -1,8 +1,10 @@
 const { BrowserWindow, shell } = require("electron");
+const path = require("path");
 
 const store = require("./store");
 const state = require("./state");
 const { iconPath, USER_AGENT } = require("./constants");
+const { injectSidebar } = require("./inject");
 
 function createWindow() {
     const win = new BrowserWindow({
@@ -15,7 +17,8 @@ function createWindow() {
         autoHideMenuBar: false,
         webPreferences: {
             nodeIntegration: false,
-            contextIsolation: true
+            contextIsolation: true,
+            preload: path.join(__dirname, "..", "preload", "index.js")
         }
     });
 
@@ -23,6 +26,10 @@ function createWindow() {
     win.webContents.setVisualZoomLevelLimits(1,1);
     win.loadURL("https://web.whatsapp.com", {
         userAgent: USER_AGENT
+    });
+
+    win.webContents.on("did-finish-load", () => {
+        injectSidebar(win.webContents);
     });
 
     win.webContents.setWindowOpenHandler(({url})=>{
