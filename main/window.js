@@ -11,7 +11,7 @@ function createWindow() {
         width: 1000,
         height: 800,
         icon: iconPath,
-        title: "WhatsApp Web Client",
+        title: "Unofficial WhatsApp Web Electron Client",
         frame: true,
         transparent: true,
         autoHideMenuBar: false,

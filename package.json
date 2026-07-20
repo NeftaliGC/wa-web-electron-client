@@ -1,7 +1,7 @@
 {
 	"name": "whatsapp-client",
 	"version": "0.1.0",
-	"description": "WhatsApp Web client built with Electron",
+	"description": "Unofficial WhatsApp Web client built with Electron",
 	"main": "main/index.js",
 	"private": true,
 	"scripts": {
@@ -19,8 +19,8 @@
 	"homepage": "https://nintech.dev",
 	"license": "MIT",
 	"build": {
-		"appId": "com.nintech.whatsappweb-client",
-		"productName": "WhatsApp Web Client",
+		"appId": "com.nintech.wa-web-electron-client",
+		"productName": "Unofficial WhatsApp Web Electron Client",
 		"linux": {
 			"target": [
 				"AppImage",

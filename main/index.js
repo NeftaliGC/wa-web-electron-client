@@ -7,8 +7,8 @@ const sidebarController = require("./sidebar-controller");
 
 const state = require("./state");
 
-app.setAppUserModelId("WhatsApp Web Client");
-app.setName("WhatsApp Web Client");
+app.setAppUserModelId("com.nintech.wa-web-electron-client");
+app.setName("Unofficial WhatsApp Web Electron Client");
 
 const gotTheLock = app.requestSingleInstanceLock();
 
